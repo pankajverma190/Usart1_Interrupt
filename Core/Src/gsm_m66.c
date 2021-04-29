@@ -358,3 +358,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	HAL_UART_Receive_IT(&huart1, &Uart_RxData, 1);
 }
 
+
+// git add .
+//  git status
+// git commit -m "gsm verification function"
+// git push -u origin master
+
