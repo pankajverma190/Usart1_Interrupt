@@ -16,7 +16,7 @@
 
 typedef struct  {
 	unsigned char command[40];
-	unsigned char Responce [3][20];
+	unsigned char Response [3][20];
 	unsigned char ResponceType[3];
 	unsigned char delimit1;
 	unsigned char delimit2;

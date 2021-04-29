@@ -210,6 +210,30 @@ void gsm_task(void)
 
 }
 
+uinteger VerifyRespAndPrepForNxtStep(ATCOMMANDS *At_Command)
+{
+    if(!compareArray(gsm.RxData, &At_Command->Response[0][0] , 0, NULL))
+    {
+       // gsm_state = GSM_RESET_MODULE; //Pankaj Verma
+        return 0;
+    }
+
+//    if(At_Command == &CreateSocket)
+//    {
+//        gsm.SocketNo = (gsm.RxData[10] - '0');
+//    }
+//
+//    if(At_Command == &ConnectSocket[gsm.SocketNo])
+//    {
+//       // Gsm.Flags.GprsInitialised = TRUE;
+//    }
+//
+//    if(At_Command == &CloseSocket[gsm.SocketNo])
+//    {
+//        gsm_state = GSM_RESET;
+//    }
+    return 1;
+}
 
 unsigned char* jump_char_fixed(unsigned char *pktPtr, char character)
 {
@@ -270,7 +294,7 @@ bool gsm_sim_Status()
 	pktptr++;
 	while(*pktptr != '\r')
 	{
-		if(*pktptr == Sim_Detect.Responce[0][i])
+		if(*pktptr == Sim_Detect.Response[0][i])
 			i++;
 		else return false;
 		pktptr++;
