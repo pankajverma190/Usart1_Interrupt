@@ -10,6 +10,7 @@ C_SRCS += \
 ../Core/Src/peripheral_task.c \
 ../Core/Src/stm32f0xx_hal_msp.c \
 ../Core/Src/stm32f0xx_it.c \
+../Core/Src/string_operation.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/system_stm32f0xx.c \
 ../Core/Src/systick_timer.c 
@@ -21,6 +22,7 @@ OBJS += \
 ./Core/Src/peripheral_task.o \
 ./Core/Src/stm32f0xx_hal_msp.o \
 ./Core/Src/stm32f0xx_it.o \
+./Core/Src/string_operation.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/system_stm32f0xx.o \
 ./Core/Src/systick_timer.o 
@@ -32,6 +34,7 @@ C_DEPS += \
 ./Core/Src/peripheral_task.d \
 ./Core/Src/stm32f0xx_hal_msp.d \
 ./Core/Src/stm32f0xx_it.d \
+./Core/Src/string_operation.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/system_stm32f0xx.d \
 ./Core/Src/systick_timer.d 

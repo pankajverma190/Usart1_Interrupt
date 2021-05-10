@@ -32,7 +32,8 @@ Core/Src/peripheral_task.o: ../Core/Src/peripheral_task.c \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/gsm_m66.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h \
- D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h \
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h:
 
@@ -101,3 +102,5 @@ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h:
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h:
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h:
+
+D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h:

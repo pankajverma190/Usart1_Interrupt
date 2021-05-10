@@ -99,10 +99,10 @@ int main(void)
 //
 // feedback = send_At_Command_Test(&Syncro_CLock, 4);
 
-  gsm_task();
+
  while (1)
   {
-
+	  gsm_task();
   }
 }
 //

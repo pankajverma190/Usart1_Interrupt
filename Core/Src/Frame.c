@@ -13,49 +13,49 @@ char DeviceID[15] = "NER12345";
 char TimeStmp[15] = "123123123123123";
 char RecordID[10] = "12345";
 char SwVer[5] = "1.00";
-char Server_name[25] = "gsm.apaulinstruments.in";
+char Server_name[] = "gsm.dsgroup.in";
 char Status_Port[5] = "9000";
 char Command_Port[5] = "8000";
 char Modem_data_status[2] = "1";
 
-uint32_t str_copy_ram_lim_ret( char *rec_src_ram_add,  char *rec_dest_ram_add,  char rec_delimitter,char src_dest)
-{
-     char *rec_src_add = rec_src_ram_add;
-    while(*rec_src_ram_add != rec_delimitter)
-        *rec_dest_ram_add++ = *rec_src_ram_add++;
-    return (rec_src_ram_add - rec_src_add + src_dest);
-}
-
-
-unsigned str_comp_ram( char *rec_src_ram_add,  char *rec_dest_ram_add,  uint32_t rec_count)
-{
-    while(rec_count--)
-    {
-        if(*rec_dest_ram_add++ != *rec_src_ram_add++)
-            return(0);
-    }
-    return(1);
-}
-
-
-
-unsigned str_comp_ram_lim( char *rec_src_ram_add,  char *rec_dest_ram_add,  uint8_t rec_delim)
-{
-    while(*rec_src_ram_add != rec_delim)
-    {
-        if(*rec_dest_ram_add++ != *rec_src_ram_add++)
-            return(0);
-    }
-    return(1);
-}
-
-
-void str_copy_ram_lim( char *rec_src_ram_add,  char *rec_dest_ram_add,  char rec_delimitter)
-{
-    while(*rec_src_ram_add != rec_delimitter)
-        *rec_dest_ram_add++ = *rec_src_ram_add++;
-}
-
+//uint32_t str_copy_ram_lim_ret( char *rec_src_ram_add,  char *rec_dest_ram_add,  char rec_delimitter,char src_dest)
+//{
+//     char *rec_src_add = rec_src_ram_add;
+//    while(*rec_src_ram_add != rec_delimitter)
+//        *rec_dest_ram_add++ = *rec_src_ram_add++;
+//    return (rec_src_ram_add - rec_src_add + src_dest);
+//}
+//
+//
+//unsigned str_comp_ram( char *rec_src_ram_add,  char *rec_dest_ram_add,  uint32_t rec_count)
+//{
+//    while(rec_count--)
+//    {
+//        if(*rec_dest_ram_add++ != *rec_src_ram_add++)
+//            return(0);
+//    }
+//    return(1);
+//}
+//
+//
+//
+//unsigned str_comp_ram_lim( char *rec_src_ram_add,  char *rec_dest_ram_add,  uint8_t rec_delim)
+//{
+//    while(*rec_src_ram_add != rec_delim)
+//    {
+//        if(*rec_dest_ram_add++ != *rec_src_ram_add++)
+//            return(0);
+//    }
+//    return(1);
+//}
+//
+//
+//void str_copy_ram_lim( char *rec_src_ram_add,  char *rec_dest_ram_add,  char rec_delimitter)
+//{
+//    while(*rec_src_ram_add != rec_delimitter)
+//        *rec_dest_ram_add++ = *rec_src_ram_add++;
+//}
+//
 
 void GenerateStausPacket()
 {

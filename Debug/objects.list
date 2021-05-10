@@ -4,6 +4,7 @@
 "Core/Src/peripheral_task.o"
 "Core/Src/stm32f0xx_hal_msp.o"
 "Core/Src/stm32f0xx_it.o"
+"Core/Src/string_operation.o"
 "Core/Src/syscalls.o"
 "Core/Src/system_stm32f0xx.o"
 "Core/Src/systick_timer.o"

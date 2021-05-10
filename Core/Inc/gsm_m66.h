@@ -61,7 +61,14 @@ struct Gsm_Flags{
 	volatile unsigned  ATCommandResponceOK:1;
 	volatile unsigned  ATCommandNetwrokRegistered:1;
 	volatile unsigned  ATCommandGPRSActivated:1;
-
+	volatile unsigned  GprsAttachment;
+	volatile unsigned  PdpContextPara;
+	volatile unsigned  ActivePdpContext;
+	volatile unsigned  SetTransparentMode;
+	volatile unsigned  SocketStart;
+	volatile unsigned  SocketDirectMode;
+	volatile unsigned  SocketConnectedDirectMode;
+	volatile unsigned  SocketSendData;
 }__attribute__ ((packed));
 
 //struct gsm_flags
@@ -113,9 +120,18 @@ extern Gsm_struct gsm;
 
 enum
 {
-	GSM_INIT=0,GSM_NETWROK_REG,GSM_GPRS_CONFIG,GSM_PACKET_READY,GSM_SOCKET_CONNECTION,GSM_SOCKET_DATA_RECEIVE,GSM_RESET,
+	GSM_INIT=0,GSM_NETWROK_REG,GSM_GPRS_CONFIG,GSM_PACKET_READY,GSM_TCPIP_STATE,GSM_SOCKET_DATA_RECEIVE,GSM_RESET,
 };
 
+enum
+{
+	GPRS_REGISTERTION=0,GPRS_ATTACHMENT,PDP_CONTEXT_PARA,ACTIVATE_PDP_CONTEXT,NON_TRANSPARENT_MODE,
+};
+
+enum
+{
+	TCP_IP_SOCKET_CREATE=0,TCP_IP_SOCKET_SELECT_MODE,TCP_IP_CONNECTION,TCP_IP_SEND_DATA,
+};
 //typedef enum{
 //	FALSE =0,
 //	TRUE,
@@ -133,4 +149,7 @@ bool gsm_sim_Status(void);
 bool network_registration_status(void);
 void cops(void);
 void prepare_data_packet(void);
+uint8_t VerifyRespAndPrepForNxtStep(ATCOMMANDS *At_Command, char);
+void SendCommandAndWaitForResponse(ATCOMMANDS *At_Command);
+
 #endif /* STM32F0308_DISCOVERY_GSM_M66_H_ */

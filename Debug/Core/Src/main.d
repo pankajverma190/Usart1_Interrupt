@@ -33,7 +33,8 @@ Core/Src/main.o: ../Core/Src/main.c \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/include_file.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h \
- D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h \
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h:
 
@@ -104,3 +105,5 @@ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h:
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h:
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h:
+
+D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h:
