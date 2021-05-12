@@ -14,6 +14,8 @@
 
 #define SIZE_OF_AT_TX_RX_BUFFER 1024
 
+#define control_Z		26
+
 typedef struct  {
 	unsigned char command[40];
 	unsigned char Response [3][20];
@@ -69,6 +71,8 @@ struct Gsm_Flags{
 	volatile unsigned  SocketDirectMode;
 	volatile unsigned  SocketConnectedDirectMode;
 	volatile unsigned  SocketSendData;
+	volatile unsigned  ReceivedData;
+
 }__attribute__ ((packed));
 
 //struct gsm_flags
@@ -112,7 +116,7 @@ typedef struct{
     uint8_t TxOperation;
     uint16_t RxDataCnt;
     uint16_t TxDataCnt;
-	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER];
+	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER - 512];
 	uint8_t RxData[SIZE_OF_AT_TX_RX_BUFFER];
 }Gsm_struct;
 
@@ -120,7 +124,7 @@ extern Gsm_struct gsm;
 
 enum
 {
-	GSM_INIT=0,GSM_NETWROK_REG,GSM_GPRS_CONFIG,GSM_PACKET_READY,GSM_TCPIP_STATE,GSM_SOCKET_DATA_RECEIVE,GSM_RESET,
+	GSM_INIT=0,GSM_NETWROK_REG,GSM_GPRS_CONFIG,GSM_PACKET_READY,GSM_TCPIP_STATE,GSM_SOCKET_DATA_RECEIVE,GSM_SLEEP,GSM_RESET,
 };
 
 enum

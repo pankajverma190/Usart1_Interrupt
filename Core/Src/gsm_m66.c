@@ -28,7 +28,7 @@ ATCOMMANDS Sim_Detect = {"AT+CPIN?",{"READY","","\r\n+CME ERROR"},{0,0,0},'\r','
 ATCOMMANDS Operator_Details = {"AT+COPS?",{"\r\n+COPS:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS Netwrok_Registration_Set = {"AT+CREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Netwrok_Registration_Get = {"AT+CREG?",{"\r\n+CREG:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Netwrok_Registration_Get = {"AT+CREG?",{"\r\n+CREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS GPRS_Registration_Set = {"AT+CGREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 ATCOMMANDS GPRS_Registration_Get = {"AT+CGREG?",{"\r\n+CGREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
@@ -37,8 +37,8 @@ ATCOMMANDS Packet_Domain_detach_Write = {"AT+CGATT=0",{"\r\nOK\r\n","","\r\n+CME
 ATCOMMANDS Packet_Domain_Read = {"AT+CGATT?",{"\r\n+CGATT:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS PDP_Context_Activate = {"AT+CGACT=1,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS PDP_Context_Deactivate = {"AT+CGACT=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS PDP_Context_Read = {"AT+CGACT?",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS PDP_Context_Deactivate = {"AT+CGACT=0,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS PDP_Context_Read = {"AT+CGACT?",{"\r\n+CGACT: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 //ATCOMMANDS Define_PDP_Context_Write[3] = {
@@ -46,9 +46,12 @@ ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.c
 //										{"AT+CGDCONT=2,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
 //										{"AT+CGDCONT=3,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
 //									};
-ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+CGDCONT:\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+/* need to be check with full format */
+//ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+AT+CGDCONT: 1,""\"IP""\",""\"airtelgprs.com""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+CGDCONT: 1,""\"IP""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS TCPIP_Non_Transparent_Mode_Set = {"AT+CIPMODE=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS TCPIP_Non_Transparent_Mode_GET= {"AT+CIPMODE?",{"\r\n+CIPMODE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 ATCOMMANDS TCPIP_Direct_Mode_Set = {"AT+CIPRXGET=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
@@ -68,9 +71,13 @@ ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,
 //												{"AT+CIPOPEN=9,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}
 //											};
 
-ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket};
+ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket};
 
-ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\nOK\r\n+CIPSEND:","\r\n>","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n+CIPSEND:","\r\n>","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+
+ATCOMMANDS Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+
+ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 
 uint8_t send_At_Command_Test(ATCOMMANDS *atcommand)
@@ -161,14 +168,14 @@ static uint8_t gprs_state = 0;
 static uint8_t tcp_ip_state = 0;
 void gsm_task(void)
 {
-	uint8_t feedback = 0;
+
 	switch(gsm_state)
 	    {
 	        case GSM_INIT:
 	        {
 	            if((gsm.Flags.Start == true)&&(gsm.Flags.GsmInitialised != true))
 	            {
-	            	peripheral_init();
+	            	//peripheral_init();
 	            	gsm_init();
 //	                Uart_Init_Gsm(&UartConfig, &GsmPoPi, 9600);
 //	                Initialise_Gsm_seperate(&GsmPoPi);
@@ -188,7 +195,7 @@ void gsm_task(void)
 	            	{
 	            		gsm_state = GSM_INIT;
 	            	}
-	            	gsm_state = GSM_NETWROK_REG; 		// test
+	            //	gsm_state = GSM_NETWROK_REG; 		// test
 
 	            }
 	        }
@@ -196,20 +203,20 @@ void gsm_task(void)
 	        case GSM_NETWROK_REG:
 			{
 				send_At_Command_Test(&Netwrok_Registration_Set);
-//				if(network_registration_status())
-//				{
-//					cops();
-//					gsm.Flags.ATCommandNetwrokRegistered=true;
-//					gsm_state = GSM_GPRS_CONFIG;
-//				}
-//				else
-//				{
-//					gsm.Flags.ATCommandNetwrokRegistered=false;
-//					gsm_state = GSM_NETWROK_REG;
-//					break;
-//				}
-				gsm_state = GSM_GPRS_CONFIG;		// test
-				gsm.Flags.ATCommandNetwrokRegistered=true;
+				if(network_registration_status())
+				{
+					cops();
+					gsm.Flags.ATCommandNetwrokRegistered=true;
+					gsm_state = GSM_GPRS_CONFIG;
+				}
+				else
+				{
+					gsm.Flags.ATCommandNetwrokRegistered=false;
+					gsm_state = GSM_NETWROK_REG;
+					break;
+				}
+				//gsm_state = GSM_GPRS_CONFIG;		// test
+				//gsm.Flags.ATCommandNetwrokRegistered=true;
 			}
 			break;
 	        case GSM_GPRS_CONFIG:
@@ -222,16 +229,16 @@ void gsm_task(void)
 	        		 {
 	        		 	 case GPRS_REGISTERTION:
 	        		 	 {
-	        		 		 int gprs_reg_status = 0;
+	        		 		uint8_t gprs_reg_status = 0;
 	        		 		 SendCommandAndWaitForResponse(&GPRS_Registration_Set);
 	        		 		 SendCommandAndWaitForResponse(&GPRS_Registration_Get);
-	        		 		 char data[]= "\r\n+CGREG: 1,1\r\n\r\nOK\r\n";
-	        		 		 int j=0;
-	        		 		 while(data[j] != '\0')
-	        		 		 {
-	        		 			 gsm.RxData[j] = data[j];
-	        		 			 j++;
-	        		 		 }
+//	        		 		 char data[]= "\r\n+CGREG: 1,1\r\n\r\nOK\r\n";
+//	        		 		 int j=0;
+//	        		 		 while(data[j] != '\0')
+//	        		 		 {
+//	        		 			 gsm.RxData[j] = data[j];
+//	        		 			 j++;
+//	        		 		 }
 	        		 		 gprs_reg_status = VerifyRespAndPrepForNxtStep(&GPRS_Registration_Get , 0);
 	        		 		 if(gprs_reg_status)
 	        	             {
@@ -247,10 +254,11 @@ void gsm_task(void)
 	        		 	 break;
 	        		 	 case GPRS_ATTACHMENT:
 	        		 	 {
-	        		 		 int gprs_attach_status = 0;
+	        		 		uint8_t gprs_attach_status = 0;
 	        		 		 SendCommandAndWaitForResponse(&Packet_Domain_Attach_Write);
 	        		 		 SendCommandAndWaitForResponse(&Packet_Domain_Read);
 	        		 		 gprs_attach_status = VerifyRespAndPrepForNxtStep(&Packet_Domain_Read , 0);
+	        		 		//gprs_attach_status = 1;
 	        		 		 if(gprs_attach_status)
 	        		 		 {
 	        		 			 gsm.Flags.GprsAttachment = true;
@@ -258,6 +266,7 @@ void gsm_task(void)
 	        		 		 }
 	        		 		 else
 	        		 		 {
+	        		 			SendCommandAndWaitForResponse(&Packet_Domain_detach_Write);
 	        		 			// if(retry_function(GSM_SLEEP, GPRS_ATTACHMENT, RETRY_GPRS))
 	        		 				 gsm.Flags.GprsAttachment = false;
 	        		 		 }
@@ -265,10 +274,11 @@ void gsm_task(void)
 	        		 	 break;
 	        		 	 case PDP_CONTEXT_PARA:
 	        		 	 {
-	        		 		 int pdp_context_status = 0;
+	        		 		uint8_t pdp_context_status = 0;
 	        		 		 SendCommandAndWaitForResponse(&Define_PDP_Context_Write);
 	        		 		SendCommandAndWaitForResponse(&Define_PDP_Context_Read);
 	        		 		 pdp_context_status = VerifyRespAndPrepForNxtStep(&Define_PDP_Context_Read, 0);
+	        		 		//pdp_context_status = 1;
 	        		 		 if(pdp_context_status)
 	        		 		 {
 	        		 			 gsm.Flags.PdpContextPara = true;
@@ -283,10 +293,11 @@ void gsm_task(void)
 	        		 	 break;
 	        		 	 case ACTIVATE_PDP_CONTEXT:
 	        		 	 {
-	        		 		 int activePdp_status = 0;
+	        		 		uint8_t activePdp_status = 0;
 	        		 		 SendCommandAndWaitForResponse(&PDP_Context_Activate);
 	        		 		SendCommandAndWaitForResponse(&PDP_Context_Read);
 	        		 		 activePdp_status = VerifyRespAndPrepForNxtStep(&PDP_Context_Read, 0);
+	        		 		//activePdp_status = 1;
 	        		 		 if(activePdp_status)
 	        		 		 {
 	        		 			 gsm.Flags.ActivePdpContext = true;
@@ -295,6 +306,7 @@ void gsm_task(void)
 	        		 		 }
 	        		 		 else
 	        		 		 {
+	        		 			SendCommandAndWaitForResponse(&PDP_Context_Deactivate);
 	        		 			 //   gsm_state = GSM_SLEEP;
 	        		 	//		 if(retry_function(GSM_SLEEP, GPRS_ATTACHMENT, RETRY_GPRS))
 	        		 				 gsm.Flags.ActivePdpContext = false;
@@ -304,9 +316,22 @@ void gsm_task(void)
 	 	        		case NON_TRANSPARENT_MODE:
 	 	        		{
 	 	        			send_At_Command_Test(&TCPIP_Non_Transparent_Mode_Set);
-	 	        			gsm.Flags.SetTransparentMode = true;
-	 	        			gprs_state = GPRS_ATTACHMENT;
-	 	        			gsm_state = GSM_PACKET_READY;
+	 	        			send_At_Command_Test(&TCPIP_Non_Transparent_Mode_GET);
+	 	        			uint8_t non_transparent_status = 0;
+	 	        			non_transparent_status = VerifyRespAndPrepForNxtStep(&TCPIP_Non_Transparent_Mode_GET, 0);
+	 	        			//non_transparent_status = 1;
+	 	        			if(non_transparent_status)
+	 	        			{
+	 	        				gsm.Flags.SetTransparentMode = true;
+	 	        				gprs_state = GPRS_ATTACHMENT;
+	 	        				gsm_state = GSM_PACKET_READY;
+	 	        			}
+	 	        			else
+	 	        			{
+	 	        				gsm.Flags.SetTransparentMode = false;
+	 	        				gprs_state = NON_TRANSPARENT_MODE;
+
+	 	        			}
 	 	        		}
 	 	        		break;
 	        		 }
@@ -325,9 +350,10 @@ void gsm_task(void)
 	        		{
 	        		case TCP_IP_SOCKET_CREATE:
 	        		{
-	        			int tcpip_status = 0;
+	        			uint8_t tcpip_status = 0;
 	        			SendCommandAndWaitForResponse(&CreateSocket);
 	        			tcpip_status = VerifyRespAndPrepForNxtStep(&CreateSocket, 0);
+	        			//tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketStart = true;
@@ -336,16 +362,18 @@ void gsm_task(void)
 	        			else
 	        			{
 	        				//if(retry_function(GSM_SLEEP, GPRS_ATTACHMENT, RETRY_GPRS))
+		        			SendCommandAndWaitForResponse(&Socket_closed_connection_Direct_Mode);
+		        			SendCommandAndWaitForResponse(&Socket_Closed);
 	        				gsm.Flags.SocketStart = false;
 	        			}
 	        		}
 	        		break;
 	        		case TCP_IP_SOCKET_SELECT_MODE:
 	        		{
-	        			send_At_Command_Test(&TCPIP_Direct_Mode_Set);
-	        			int tcpip_mode_select = 0;
+	        			uint8_t tcpip_mode_select = 0;
 	        			SendCommandAndWaitForResponse(&TCPIP_Direct_Mode_Set);
 	        			tcpip_mode_select = VerifyRespAndPrepForNxtStep(&TCPIP_Direct_Mode_Set, 0);
+	        			//tcpip_mode_select = 1;
 	        			if(tcpip_mode_select)
 	        			{
 	        				gsm.Flags.SocketDirectMode = true;
@@ -360,9 +388,10 @@ void gsm_task(void)
 	        		break;
 	        		case TCP_IP_CONNECTION:
 	        		{
-	        			int tcpip_status = 0;
+	        			uint8_t tcpip_status = 0;
 	        			SendCommandAndWaitForResponse(&Socket_connection_Direct_Mode);
 	        			tcpip_status = VerifyRespAndPrepForNxtStep(&Socket_connection_Direct_Mode, 0);
+	        			//tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketConnectedDirectMode = true;
@@ -377,18 +406,30 @@ void gsm_task(void)
 	        		break;
 	        		case TCP_IP_SEND_DATA:
 	        		{
-	        			int tcpip_status = 0;
+	        			uint8_t tcpip_status = 0, ctrl_z = 0x1A;
+	        			char tx_data[]="STX,HELLO DS GROUP SEND DATA FROM STM32,ETX";
 	        			SendCommandAndWaitForResponse(&TcpIp_Send_data);
+//	        			uint8_t data[]= "\r\n>";
+//	        				        		 		 int j=0;
+//	        				        		 		 while(data[j] != '\0')
+//	        				        		 		 {
+//	        				        		 			 gsm.RxData[j] = data[j];
+//	        				        		 			 j++;
+//	        				        		 		 }
 	        			if(compareArray(gsm.RxData,&TcpIp_Send_data.Response[1][0],0,'\0'))
 						{
 	        				//data send
-	        				HAL_UART_Transmit(&huart1,26,1,100);
+	        				HAL_UART_Transmit(&huart1,tx_data,sizeof(tx_data),1000);
+	        				HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
 						}
 	        			else
 	        			{
 	        				break;
 	        			}
-	        			tcpip_status = VerifyRespAndPrepForNxtStep(&TcpIp_Send_data,':');
+	        			//HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
+	        			delayMiliSec(1000);
+	        			tcpip_status = VerifyRespAndPrepForNxtStep(&TcpIp_Send_data,0);
+	        			//tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketSendData = true;
@@ -406,6 +447,37 @@ void gsm_task(void)
 	        }
 	        break;
 	        case GSM_SOCKET_DATA_RECEIVE:
+	        {
+	        	uint8_t receive_status = 0;
+	        	gsm.Flags.ATCommandResponceReceive = false;
+	        	startTimer(&AtCommandTimer, 30000, false);
+	        	while(gsm.Flags.ATCommandResponceReceive == false)
+	        	{
+	        		if(isTimerComplete(AtCommandTimer))
+	        			break;
+	        	}
+
+	        	stopTimer(AtCommandTimer);
+	        	if(gsm.Flags.ATCommandResponceReceive == true)
+	        	{
+	        		if(compareArray(gsm.RxData, "\r\nRECVFROM:13.126.165.4:4000\r\n+IPD" , 0, '\0'))
+	        		{
+	        			gsm.Flags.ReceivedData = true;
+	        			SendCommandAndWaitForResponse(&Socket_closed_connection_Direct_Mode);
+	        			SendCommandAndWaitForResponse(&Socket_Closed);
+	        			gsm_state = GSM_SLEEP;
+	        		}
+	        		else
+	        		{
+	        			tcp_ip_state = TCP_IP_CONNECTION;
+	        			gsm_state = GSM_TCPIP_STATE;
+	        			gsm.Flags.ReceivedData = false;
+	        			break;
+	        		}
+	        	}
+	        }
+	        break;
+	        case GSM_SLEEP:
 	        {
 
 	        }
@@ -525,7 +597,7 @@ bool network_registration_status(void)
 	send_At_Command_Test(&Netwrok_Registration_Get);
 	unsigned char *pktptr = &gsm.RxData[0];
 	pktptr = jump_char_fixed(pktptr,',');
-	pktptr++;
+	//pktptr++;
 	if(*pktptr == '1')
 		return true;
 	else
@@ -542,7 +614,7 @@ void cops(void)
 	pktptr++;
 	while(*pktptr != '\r')
 	{
-		gsm.gsm_data.imei[i++] = *pktptr;
+		gsm.gsm_data.cops[i++] = *pktptr;
 		pktptr++;
 	}
 }
