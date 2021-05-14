@@ -59,6 +59,7 @@ struct Gsm_Flags{
 	volatile unsigned  Start:1;
 	volatile unsigned  GsmInitialised:1;
 	volatile unsigned  GsmErrorResponce:1;
+	volatile unsigned  SimStatusChecked:1;
 	volatile unsigned  ATCommandResponceReceive:1;
 	volatile unsigned  ATCommandResponceOK:1;
 	volatile unsigned  ATCommandNetwrokRegistered:1;
@@ -72,6 +73,8 @@ struct Gsm_Flags{
 	volatile unsigned  SocketConnectedDirectMode;
 	volatile unsigned  SocketSendData;
 	volatile unsigned  ReceivedData;
+	volatile unsigned  GsmReset;
+	volatile unsigned  GsmSleep;
 
 }__attribute__ ((packed));
 
@@ -114,6 +117,7 @@ typedef struct{
     uint8_t NetworkRegistrationN;
     uint8_t SocketNo;
     uint8_t TxOperation;
+    uint8_t RxOperation;
     uint16_t RxDataCnt;
     uint16_t TxDataCnt;
 	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER - 512];

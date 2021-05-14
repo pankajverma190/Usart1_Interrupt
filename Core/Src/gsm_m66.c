@@ -13,34 +13,34 @@ Gsm_struct gsm;
 
 int AtCommandTimer = 0;
 
-ATCOMMANDS ECHO = {"ATE0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Long_Format_Result = {"ATV1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Short_Format_Result = {"ATV0",{"0\r","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS ECHO = {"ATE0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
+ATCOMMANDS Long_Format_Result = {"ATV1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
+ATCOMMANDS Short_Format_Result = {"ATV0",{"0\r","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 ATCOMMANDS Reset_Module = {"AT+CRESET",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
-ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 //ATCOMMANDS IMEI = {"AT+CN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS IMEI = {"AT+CGSN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS IMEI = {"AT+CGSN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 ATCOMMANDS Syncro_CLock = {"AT+CCLK?",{"\r\n+CCLK: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Signal_Quality = {"AT+CSQ",{"\r\n+CSQ: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Sim_Detect = {"AT+CPIN?",{"READY","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Operator_Details = {"AT+COPS?",{"\r\n+COPS:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Signal_Quality = {"AT+CSQ",{"\r\n+CSQ: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Sim_Detect = {"AT+CPIN?",{"READY","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Operator_Details = {"AT+COPS?",{"\r\n+COPS:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
-ATCOMMANDS Netwrok_Registration_Set = {"AT+CREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Netwrok_Registration_Get = {"AT+CREG?",{"\r\n+CREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Netwrok_Registration_Set = {"AT+CREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Netwrok_Registration_Get = {"AT+CREG?",{"\r\n+CREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
-ATCOMMANDS GPRS_Registration_Set = {"AT+CGREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS GPRS_Registration_Get = {"AT+CGREG?",{"\r\n+CGREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Packet_Domain_Attach_Write = {"AT+CGATT=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Packet_Domain_detach_Write = {"AT+CGATT=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS Packet_Domain_Read = {"AT+CGATT?",{"\r\n+CGATT:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS GPRS_Registration_Set = {"AT+CGREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS GPRS_Registration_Get = {"AT+CGREG?",{"\r\n+CGREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Packet_Domain_Attach_Write = {"AT+CGATT=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Packet_Domain_detach_Write = {"AT+CGATT=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS Packet_Domain_Read = {"AT+CGATT?",{"\r\n+CGATT:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
-ATCOMMANDS PDP_Context_Activate = {"AT+CGACT=1,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS PDP_Context_Deactivate = {"AT+CGACT=0,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS PDP_Context_Read = {"AT+CGACT?",{"\r\n+CGACT: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS PDP_Context_Activate = {"AT+CGACT=1,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS PDP_Context_Deactivate = {"AT+CGACT=0,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS PDP_Context_Read = {"AT+CGACT?",{"\r\n+CGACT: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
-ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 //ATCOMMANDS Define_PDP_Context_Write[3] = {
 //										{"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
 //										{"AT+CGDCONT=2,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
@@ -50,13 +50,13 @@ ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.c
 //ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+AT+CGDCONT: 1,""\"IP""\",""\"airtelgprs.com""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+CGDCONT: 1,""\"IP""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
-ATCOMMANDS TCPIP_Non_Transparent_Mode_Set = {"AT+CIPMODE=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS TCPIP_Non_Transparent_Mode_GET= {"AT+CIPMODE?",{"\r\n+CIPMODE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS TCPIP_Non_Transparent_Mode_Set = {"AT+CIPMODE=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+ATCOMMANDS TCPIP_Non_Transparent_Mode_GET= {"AT+CIPMODE?",{"\r\n+CIPMODE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
-ATCOMMANDS TCPIP_Direct_Mode_Set = {"AT+CIPRXGET=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS TCPIP_Direct_Mode_Set = {"AT+CIPRXGET=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 
 // create socket
-ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',1000}; //returns a number identifying the socket
 
 //ATCOMMANDS Socket_connection_Direct_Mode[10] = {
 //												{"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}, //returns a number identifying the socket};
@@ -71,13 +71,13 @@ ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,
 //												{"AT+CIPOPEN=9,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}
 //											};
 
-ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket};
+ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',1000}; //returns a number identifying the socket};
 
-ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n+CIPSEND:","\r\n>","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n\r\n+CIPSEND:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
 
-ATCOMMANDS Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 
-ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 
 
 uint8_t send_At_Command_Test(ATCOMMANDS *atcommand)
@@ -188,6 +188,7 @@ void gsm_task(void)
 		            	gsm_ccid();
 		            	gsm_imsi();
 		            	gsm_imei();
+		            	gsm.Flags.SimStatusChecked=true;
 		            	gsm_state = GSM_NETWROK_REG;
 		            	break;
 	            	}
@@ -407,7 +408,8 @@ void gsm_task(void)
 	        		case TCP_IP_SEND_DATA:
 	        		{
 	        			uint8_t tcpip_status = 0, ctrl_z = 0x1A;
-	        			char tx_data[]="STX,HELLO DS GROUP SEND DATA FROM STM32,ETX";
+	        			//char tx_data[]="STX,HELLO DS GROUP SEND DATA FROM STM32,ETX";
+	        			char tx_data[]="Quectel’s passion for a smarter world drives us to accelerate IoT innovation. A highly customer-centric organization, we create superior cellular and GNSS modules and antennas backed by outstanding support and services. Our growing global team of over 3000 professionals, the largest in the IoT modules industry worldwide, ensures we are first to market and continue to set the pace of development. Listed on the Shanghai Stock Exchange (603236.SS), our international leadership is devoted to advancing IoT across the globe.";
 	        			SendCommandAndWaitForResponse(&TcpIp_Send_data);
 //	        			uint8_t data[]= "\r\n>";
 //	        				        		 		 int j=0;
@@ -435,6 +437,8 @@ void gsm_task(void)
 	        				gsm.Flags.SocketSendData = true;
 	        				tcp_ip_state = TCP_IP_SOCKET_CREATE;
 	        				gsm_state = GSM_SOCKET_DATA_RECEIVE;
+	        				gsm.RxOperation = 0;
+	        				gsm.RxDataCnt = 0;
 	        			}
 	        			else
 	        			{
@@ -449,8 +453,9 @@ void gsm_task(void)
 	        case GSM_SOCKET_DATA_RECEIVE:
 	        {
 	        	uint8_t receive_status = 0;
-	        	gsm.Flags.ATCommandResponceReceive = false;
-	        	startTimer(&AtCommandTimer, 30000, false);
+	        	//gsm.Flags.ATCommandResponceReceive = false;
+	        	memset(gsm.RxData, 0, sizeof(gsm.RxData));
+	        	startTimer(&AtCommandTimer, 10000, false);
 	        	while(gsm.Flags.ATCommandResponceReceive == false)
 	        	{
 	        		if(isTimerComplete(AtCommandTimer))
@@ -458,20 +463,28 @@ void gsm_task(void)
 	        	}
 
 	        	stopTimer(AtCommandTimer);
-	        	if(gsm.Flags.ATCommandResponceReceive == true)
+//	        	startTimer(&AtCommandTimer, 5000, false);
+//	        	while(isTimerComplete(AtCommandTimer))
+//	        		stopTimer(AtCommandTimer);
+
+	        	if(gsm.RxOperation == true)
 	        	{
-	        		if(compareArray(gsm.RxData, "\r\nRECVFROM:13.126.165.4:4000\r\n+IPD" , 0, '\0'))
+	        		if(compareArray(gsm.RxData, "\r\nRECV FROM:13.126.165.4:4000\r\n+IPD", 0, '\0'))
 	        		{
 	        			gsm.Flags.ReceivedData = true;
+	        			gsm.Flags.GsmReset = false;
 	        			SendCommandAndWaitForResponse(&Socket_closed_connection_Direct_Mode);
 	        			SendCommandAndWaitForResponse(&Socket_Closed);
+	        			gsm.RxOperation = false;
 	        			gsm_state = GSM_SLEEP;
 	        		}
 	        		else
 	        		{
-	        			tcp_ip_state = TCP_IP_CONNECTION;
+	        			//tcp_ip_state = TCP_IP_CONNECTION;
+	        			tcp_ip_state = TCP_IP_SEND_DATA;
 	        			gsm_state = GSM_TCPIP_STATE;
 	        			gsm.Flags.ReceivedData = false;
+	        			gsm.RxOperation = false;
 	        			break;
 	        		}
 	        	}
@@ -479,11 +492,24 @@ void gsm_task(void)
 	        break;
 	        case GSM_SLEEP:
 	        {
-
+	        	gsm_state = GSM_RESET;
+	        	gsm.Flags.GsmSleep = true;
 	        }
 	        break;
 	        case GSM_RESET:
 	        {
+	        	send_At_Command_Test(&Reset_Module);
+	      //  	memset(gsm.Flags,0,sizeof(gsm.Flags));
+	      //  	memset(gsm,0,sizeof(gsm));
+	        	startTimer(&AtCommandTimer, 50000, false);
+	        	while(isTimerComplete(AtCommandTimer))
+	        	{
+		        	gsm.Flags.GsmInitialised = true;
+		        	gsm.Flags.Start = true;
+		        	gsm.Flags.GsmReset = true;
+		        	gsm_state = GSM_INIT;
+		        	stopTimer(AtCommandTimer);
+	        	}
 
 	        }
 	        break;
@@ -642,6 +668,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //		gsm.RxData[count] = '\0';
 		gsm.RxData[gsm.RxDataCnt] = Uart_RxData;
 		gsm.RxDataCnt = (1+gsm.RxDataCnt)% MAX_BUFFER_SIZE;
+		gsm.RxOperation = true;
 	}
 	HAL_UART_Receive_IT(&huart1, &Uart_RxData, 1);
 }
@@ -660,3 +687,72 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //
 //
 //13.126.165.4
+
+//
+//ATCOMMANDS ECHO = {"ATE0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Long_Format_Result = {"ATV1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Short_Format_Result = {"ATV0",{"0\r","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Reset_Module = {"AT+CRESET",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+////ATCOMMANDS IMEI = {"AT+CN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS IMEI = {"AT+CGSN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Syncro_CLock = {"AT+CCLK?",{"\r\n+CCLK: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Signal_Quality = {"AT+CSQ",{"\r\n+CSQ: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Sim_Detect = {"AT+CPIN?",{"READY","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Operator_Details = {"AT+COPS?",{"\r\n+COPS:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS Netwrok_Registration_Set = {"AT+CREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Netwrok_Registration_Get = {"AT+CREG?",{"\r\n+CREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS GPRS_Registration_Set = {"AT+CGREG=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS GPRS_Registration_Get = {"AT+CGREG?",{"\r\n+CGREG: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Packet_Domain_Attach_Write = {"AT+CGATT=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Packet_Domain_detach_Write = {"AT+CGATT=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Packet_Domain_Read = {"AT+CGATT?",{"\r\n+CGATT:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS PDP_Context_Activate = {"AT+CGACT=1,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS PDP_Context_Deactivate = {"AT+CGACT=0,1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS PDP_Context_Read = {"AT+CGACT?",{"\r\n+CGACT: 1,1","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS Define_PDP_Context_Write = {"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+////ATCOMMANDS Define_PDP_Context_Write[3] = {
+////										{"AT+CGDCONT=1,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
+////										{"AT+CGDCONT=2,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
+////										{"AT+CGDCONT=3,""\"IP""\",""\"airtelgprs.com""\"",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500},
+////									};
+///* need to be check with full format */
+////ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+AT+CGDCONT: 1,""\"IP""\",""\"airtelgprs.com""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS Define_PDP_Context_Read = {"AT+CGDCONT?",{"\r\n+CGDCONT: 1,""\"IP""\"","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS TCPIP_Non_Transparent_Mode_Set = {"AT+CIPMODE=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS TCPIP_Non_Transparent_Mode_GET= {"AT+CIPMODE?",{"\r\n+CIPMODE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS TCPIP_Direct_Mode_Set = {"AT+CIPRXGET=0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//// create socket
+//ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+//
+////ATCOMMANDS Socket_connection_Direct_Mode[10] = {
+////												{"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}, //returns a number identifying the socket};
+////												{"AT+CIPOPEN=1,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=2,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=3,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=4,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=5,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=6,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=7,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=8,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000},
+////												{"AT+CIPOPEN=9,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}
+////											};
+//
+//ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket};
+//
+//ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n\r\n+CIPSEND:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+//
+//ATCOMMANDS Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+//ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//
+
