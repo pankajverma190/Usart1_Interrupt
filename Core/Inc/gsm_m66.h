@@ -42,6 +42,9 @@ struct gsm_data_struct
    char cellid[6];
    char gsm_channel[2];
    char status_port[6];
+   char Response_IP[16];
+   char Response_Port[6];
+
    char command_port[6];
 
    char signal_strength[3];
@@ -50,6 +53,8 @@ struct gsm_data_struct
    char fnn[32];
    char snn[16];
    char server_name[25];
+   uint16_t data_receive_count;
+   char server_data[200];
 //   struct gsm_time_struct time;
 //   struct gsm_date_struct date;
 }__attribute__ ((packed));
@@ -122,6 +127,12 @@ typedef struct{
     uint16_t TxDataCnt;
 	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER - 512];
 	uint8_t RxData[SIZE_OF_AT_TX_RX_BUFFER];
+    union
+    {
+		uint8_t  socketRxData[SIZE_OF_AT_TX_RX_BUFFER-512];
+    //    struct Server_Status_ACK_Struct StausAckStru;
+    //    struct Server_Commnd_ACK_Struct CommandAckStru;
+    }ServerRxDataUni;
 }Gsm_struct;
 
 extern Gsm_struct gsm;
@@ -157,6 +168,7 @@ bool gsm_sim_Status(void);
 bool network_registration_status(void);
 void cops(void);
 void prepare_data_packet(void);
+void serverdatasave();
 uint8_t VerifyRespAndPrepForNxtStep(ATCOMMANDS *At_Command, char);
 void SendCommandAndWaitForResponse(ATCOMMANDS *At_Command);
 

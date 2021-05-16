@@ -421,7 +421,7 @@ void gsm_task(void)
 	        			if(compareArray(gsm.RxData,&TcpIp_Send_data.Response[1][0],0,'\0'))
 						{
 	        				//data send
-	        				HAL_UART_Transmit(&huart1,tx_data,sizeof(tx_data),1000);
+	        				HAL_UART_Transmit(&huart1,&tx_data,sizeof(tx_data),1000);
 	        				HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
 						}
 	        			else
@@ -453,7 +453,6 @@ void gsm_task(void)
 	        case GSM_SOCKET_DATA_RECEIVE:
 	        {
 	        	uint8_t receive_status = 0;
-	        	//gsm.Flags.ATCommandResponceReceive = false;
 	        	memset(gsm.RxData, 0, sizeof(gsm.RxData));
 	        	startTimer(&AtCommandTimer, 10000, false);
 	        	while(gsm.Flags.ATCommandResponceReceive == false)
@@ -463,16 +462,13 @@ void gsm_task(void)
 	        	}
 
 	        	stopTimer(AtCommandTimer);
-//	        	startTimer(&AtCommandTimer, 5000, false);
-//	        	while(isTimerComplete(AtCommandTimer))
-//	        		stopTimer(AtCommandTimer);
-
 	        	if(gsm.RxOperation == true)
 	        	{
 	        		if(compareArray(gsm.RxData, "\r\nRECV FROM:13.126.165.4:4000\r\n+IPD", 0, '\0'))
 	        		{
 	        			gsm.Flags.ReceivedData = true;
 	        			gsm.Flags.GsmReset = false;
+	        			serverdatasave();
 	        			SendCommandAndWaitForResponse(&Socket_closed_connection_Direct_Mode);
 	        			SendCommandAndWaitForResponse(&Socket_Closed);
 	        			gsm.RxOperation = false;
@@ -555,7 +551,44 @@ unsigned char* jump_char_fixed(unsigned char *pktPtr, char character)
     return pktPtr;
 }
 
+void serverdatasave()
+{
+	int i=0;  				//    \r\nRECV FROM:13.126.165.4:4000\r\n+IPD
+	unsigned char *pktptr = &gsm.RxData[0];
+	pktptr = jump_char_fixed(pktptr,':');
+	while(*pktptr != ':')
+	{
+		gsm.gsm_data.Response_IP[i++] = *pktptr;
+		pktptr++;
+	}
+	i=0;
+	while(*pktptr != '\r')
+	{
+		gsm.gsm_data.Response_Port[i++] = *pktptr;
+		pktptr++;
+	}
+	pktptr++;
+	pktptr++;
+	pktptr++;
+	pktptr++;
+	pktptr++;
+	i=0;
+	char count[] = "\0";
+	while(*pktptr != '\r')
+	{
+		count[i++] = *pktptr;
+		pktptr++;
+	}
+	convert_char_to_int_and_store(count,&gsm.gsm_data.data_receive_count,4);
+	pktptr++;
+	i=0;
+	while(*pktptr != '\0')
+	{
+		gsm.gsm_data.server_data[i++] = *pktptr;
+		pktptr++;
+	}
 
+}
 
 void gsm_ccid()
 {
@@ -569,6 +602,8 @@ void gsm_ccid()
 		gsm.gsm_data.ccid[i++] = *pktptr;
 		pktptr++;
 	}
+
+
 }
 
 
