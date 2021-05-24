@@ -34,7 +34,8 @@ Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.o: \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/main.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h \
  D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h \
- D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h \
+ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/crc_function.h
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
 
@@ -105,3 +106,5 @@ D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/peripheral_task.h:
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/Frame.h:
 
 D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/string_operation.h:
+
+D:/CUBEMX/STM32F0/ALL_Project_HSI/Usart1_Interrupt/Core/Inc/crc_function.h:

@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/Frame.c \
+../Core/Src/crc_function.c \
 ../Core/Src/gsm_m66.c \
 ../Core/Src/main.c \
 ../Core/Src/peripheral_task.c \
@@ -17,6 +18,7 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/Frame.o \
+./Core/Src/crc_function.o \
 ./Core/Src/gsm_m66.o \
 ./Core/Src/main.o \
 ./Core/Src/peripheral_task.o \
@@ -29,6 +31,7 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/Frame.d \
+./Core/Src/crc_function.d \
 ./Core/Src/gsm_m66.d \
 ./Core/Src/main.d \
 ./Core/Src/peripheral_task.d \

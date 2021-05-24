@@ -14,9 +14,13 @@ Gsm_struct gsm;
 int AtCommandTimer = 0;
 
 ATCOMMANDS ECHO = {"ATE0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
-ATCOMMANDS Long_Format_Result = {"ATV1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
-ATCOMMANDS Short_Format_Result = {"ATV0",{"0\r","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
+//ATCOMMANDS Long_Format_Result = {"ATV1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
+//ATCOMMANDS Short_Format_Result = {"ATV0",{"0\r","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 ATCOMMANDS Reset_Module = {"AT+CRESET",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+ATCOMMANDS Automatic_Time_Zone_Update = {"AT+CTZU=1",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+
+ATCOMMANDS Save_user_setting_to_ME = {"AT&W0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+
 
 ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
@@ -177,8 +181,8 @@ void gsm_task(void)
 	            {
 	            	//peripheral_init();
 	            	gsm_init();
-//	                Uart_Init_Gsm(&UartConfig, &GsmPoPi, 9600);
-//	                Initialise_Gsm_seperate(&GsmPoPi);
+	          	  send_At_Command_Test(&Automatic_Time_Zone_Update);
+	          	  send_At_Command_Test(&Save_user_setting_to_ME);
 	            }
 
 	            if(gsm.Flags.GsmInitialised)
@@ -196,8 +200,7 @@ void gsm_task(void)
 	            	{
 	            		gsm_state = GSM_INIT;
 	            	}
-	            //	gsm_state = GSM_NETWROK_REG; 		// test
-
+	            	//gsm_state = GSM_TCPIP_STATE; 		// test
 	            }
 	        }
 	        break;
@@ -409,26 +412,23 @@ void gsm_task(void)
 	        		{
 	        			uint8_t tcpip_status = 0, ctrl_z = 0x1A;
 	        			//char tx_data[]="STX,HELLO DS GROUP SEND DATA FROM STM32,ETX";
-	        			char tx_data[]="Quectel’s passion for a smarter world drives us to accelerate IoT innovation. A highly customer-centric organization, we create superior cellular and GNSS modules and antennas backed by outstanding support and services. Our growing global team of over 3000 professionals, the largest in the IoT modules industry worldwide, ensures we are first to market and continue to set the pace of development. Listed on the Shanghai Stock Exchange (603236.SS), our international leadership is devoted to advancing IoT across the globe.";
+	        			//char tx_data[]="Quectel’s passion for a smarter world drives us to accelerate IoT innovation. A highly customer-centric organization, we create superior cellular and GNSS modules and antennas backed by outstanding support and services. Our growing global team of over 3000 professionals, the largest in the IoT modules industry worldwide, ensures we are first to market and continue to set the pace of development. Listed on the Shanghai Stock Exchange (603236.SS), our international leadership is devoted to advancing IoT across the globe.";
 	        			SendCommandAndWaitForResponse(&TcpIp_Send_data);
-//	        			uint8_t data[]= "\r\n>";
-//	        				        		 		 int j=0;
-//	        				        		 		 while(data[j] != '\0')
-//	        				        		 		 {
-//	        				        		 			 gsm.RxData[j] = data[j];
-//	        				        		 			 j++;
-//	        				        		 		 }
+	        			GenerateStausPacket();
+//	        			HAL_UART_Transmit(&huart1,&gsm.TxData,sizeof(gsm.TxData),1000);
+//	        			HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
 	        			if(compareArray(gsm.RxData,&TcpIp_Send_data.Response[1][0],0,'\0'))
 						{
 	        				//data send
-	        				HAL_UART_Transmit(&huart1,&tx_data,sizeof(tx_data),1000);
+	        				HAL_UART_Transmit(&huart1,&gsm.TxData,sizeof(gsm.TxData),1000);
+
+	        				//HAL_UART_Transmit(&huart1,&tx_data,sizeof(tx_data),1000);
 	        				HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
 						}
 	        			else
 	        			{
 	        				break;
 	        			}
-	        			//HAL_UART_Transmit(&huart1,&ctrl_z,sizeof(ctrl_z),100);
 	        			delayMiliSec(1000);
 	        			tcpip_status = VerifyRespAndPrepForNxtStep(&TcpIp_Send_data,0);
 	        			//tcpip_status = 1;
@@ -587,7 +587,6 @@ void serverdatasave()
 		gsm.gsm_data.server_data[i++] = *pktptr;
 		pktptr++;
 	}
-
 }
 
 void gsm_ccid()
@@ -682,9 +681,30 @@ void cops(void)
 
 void prepare_data_packet(void)
 {
+	date_time_status();
+	gsm.gsm_data.FC_CONFIGRATION = FC_ALERT;
+	//gsm.gsm_data.server_data[] = "data send to server";
+}
+void date_time_status()
+{
+	int i=0;
+	send_At_Command_Test(&Syncro_CLock);		//   +CCLK: "21/03/26,15:03:29+22"
+	unsigned char *pktptr = &gsm.RxData[0];
+	pktptr = jump_char_fixed(pktptr,'"');
+	pktptr++;
+	while(*pktptr != ',')
+	{
+		gsm.gsm_data.date_time.date[i++] = *pktptr;
+		pktptr++;
+	}
+	pktptr++;
+	while(*pktptr != '+')
+	{
+		gsm.gsm_data.date_time.time[i++] = *pktptr;
+		pktptr++;
+	}
 
 }
-
 
 
 

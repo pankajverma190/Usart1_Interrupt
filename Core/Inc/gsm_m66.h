@@ -9,12 +9,18 @@
 #define STM32F0308_DISCOVERY_GSM_M66_H_
 
 #include "include_file.h"
-
-#include "main.h"
+//#include "string_operation.h"
+//#include "main.h"
 
 #define SIZE_OF_AT_TX_RX_BUFFER 1024
 
-#define control_Z		26
+// functional code
+# define FC_ALERT				'A'
+#define  FC_KEEPLIVE			'K'
+#define  FC_STATUS				'S'
+#define	 FC_CONFIGURATION		'C'
+#define	 FC_BUZZER_ON			'N'
+#define	 FC_BUZZER_OFF			'F'
 
 typedef struct  {
 	unsigned char command[40];
@@ -27,37 +33,42 @@ typedef struct  {
 
 //extern ATCOMMANDS ;
 
+struct gsm_date_time_struct
+{
+	unsigned char date[8];
+	unsigned char time[8];
+
+};
+
 
 struct gsm_data_struct
 {
-   char imei[16];
+	unsigned char imei[16];
   // char utc_timeStamp[16];
-   char DeviceID[15];
-   char RecordID[15];
-   char SwVer[15];
-   char imsi[16];
-   char ccid[20];
-   char cops[15];
-   char lac[8];
-   char cellid[6];
-   char gsm_channel[2];
-   char status_port[6];
-   char Response_IP[16];
-   char Response_Port[6];
+	unsigned char DeviceID[15];
+	unsigned char RecordID[15];
+   unsigned char SwVer[15];
+   unsigned char imsi[16];
+   unsigned char ccid[20];
+   unsigned char cops[15];
+   unsigned char gsm_channel[2];
+   unsigned char status_port[6];
+   unsigned char Response_IP[16];
+   unsigned char Response_Port[6];
 
-   char command_port[6];
+   unsigned char command_port[6];
 
-   char signal_strength[3];
-   char modem_data_status[2];
-   char gsm_band[20];
-   char fnn[32];
-   char snn[16];
-   char server_name[25];
+   unsigned char signal_strength[3];
+   unsigned char gsm_band[10];
+   unsigned char snn[16];
+   unsigned char server_name[20];
    uint16_t data_receive_count;
-   char server_data[200];
-//   struct gsm_time_struct time;
-//   struct gsm_date_struct date;
+   unsigned char server_data[50];
+   unsigned char FC_CONFIGRATION;
+  // struct gsm_time_struct time;
+   struct gsm_date_time_struct date_time;
 }__attribute__ ((packed));
+
 
 
 struct Gsm_Flags{
@@ -77,9 +88,11 @@ struct Gsm_Flags{
 	volatile unsigned  SocketDirectMode;
 	volatile unsigned  SocketConnectedDirectMode;
 	volatile unsigned  SocketSendData;
+	volatile unsigned  DataPacketReady;
 	volatile unsigned  ReceivedData;
 	volatile unsigned  GsmReset;
 	volatile unsigned  GsmSleep;
+	volatile unsigned  crcVerified;
 
 }__attribute__ ((packed));
 
@@ -120,19 +133,20 @@ typedef struct{
 	struct gsm_data_struct gsm_data;
     uint8_t NetworkRegistrationStat;
     uint8_t NetworkRegistrationN;
-    uint8_t SocketNo;
+   unsigned char crc_data[4];
     uint8_t TxOperation;
     uint8_t RxOperation;
     uint16_t RxDataCnt;
     uint16_t TxDataCnt;
-	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER - 512];
-	uint8_t RxData[SIZE_OF_AT_TX_RX_BUFFER];
-    union
-    {
-		uint8_t  socketRxData[SIZE_OF_AT_TX_RX_BUFFER-512];
-    //    struct Server_Status_ACK_Struct StausAckStru;
-    //    struct Server_Commnd_ACK_Struct CommandAckStru;
-    }ServerRxDataUni;
+	uint8_t TxData[SIZE_OF_AT_TX_RX_BUFFER - 892];
+	//uint8_t RxData[SIZE_OF_AT_TX_RX_BUFFER- 992];
+	uint8_t RxData[SIZE_OF_AT_TX_RX_BUFFER- 892];
+//    union
+//    {
+//		uint8_t  socketRxData[SIZE_OF_AT_TX_RX_BUFFER-512];
+//    //    struct Server_Status_ACK_Struct StausAckStru;
+//    //    struct Server_Commnd_ACK_Struct CommandAckStru;
+//    }ServerRxDataUni;
 }Gsm_struct;
 
 extern Gsm_struct gsm;
@@ -169,6 +183,7 @@ bool network_registration_status(void);
 void cops(void);
 void prepare_data_packet(void);
 void serverdatasave();
+void date_time_status();
 uint8_t VerifyRespAndPrepForNxtStep(ATCOMMANDS *At_Command, char);
 void SendCommandAndWaitForResponse(ATCOMMANDS *At_Command);
 

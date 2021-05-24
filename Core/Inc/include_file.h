@@ -18,6 +18,7 @@
 #include "peripheral_task.h"
 #include "Frame.h"
 #include "string_operation.h"
+#include "crc_function.h"
 
 //#define (unsigned char) ubyte
 

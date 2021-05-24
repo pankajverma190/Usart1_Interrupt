@@ -25,7 +25,7 @@
 //uint8_t TxData [] = "HELLO_WORLD\r\n";
 //uint8_t atcom[] = "ok\r\n";
 
- Gsm_struct gsm;
+ //Gsm_struct gsm;
 
 
 //void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)

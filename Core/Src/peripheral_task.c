@@ -24,4 +24,6 @@ ATCOMMANDS ECHO1 = {"ATE0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',
 	  gsm.Flags.GsmInitialised = true;
 	  send_At_Command_Test(&FOrmat1);
 	  send_At_Command_Test(&ECHO1);
+
+
  }
