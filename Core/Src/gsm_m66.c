@@ -469,6 +469,7 @@ void gsm_task(void)
 	        			gsm.Flags.ReceivedData = true;
 	        			gsm.Flags.GsmReset = false;
 	        			serverdatasave();
+	        			Responce_Execution(gsm.gsm_data.Responce_FC);	// response result execution
 	        			SendCommandAndWaitForResponse(&Socket_closed_connection_Direct_Mode);
 	        			SendCommandAndWaitForResponse(&Socket_Closed);
 	        			gsm.RxOperation = false;
@@ -587,8 +588,33 @@ void serverdatasave()
 		gsm.gsm_data.server_data[i++] = *pktptr;
 		pktptr++;
 	}
+	gsm.gsm_data.Responce_FC = gsm.gsm_data.server_data[7];
 }
 
+
+void Responce_Execution(uint8_t responce_execution)
+{
+	switch(responce_execution)
+	{
+		case FC_ALERT:
+		{
+
+		}
+		break;
+		case FC_CONFIGURATION:
+		{
+
+		}
+		break;
+		case FC_KEEPLIVE:
+		{
+
+		}
+		break;
+
+	}
+
+}
 void gsm_ccid()
 {
 	int i=0;

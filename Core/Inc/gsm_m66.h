@@ -65,6 +65,7 @@ struct gsm_data_struct
    uint16_t data_receive_count;
    unsigned char server_data[50];
    unsigned char FC_CONFIGRATION;
+   unsigned char Responce_FC;
   // struct gsm_time_struct time;
    struct gsm_date_time_struct date_time;
 }__attribute__ ((packed));
