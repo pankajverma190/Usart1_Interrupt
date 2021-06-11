@@ -22,10 +22,10 @@ ATCOMMANDS Automatic_Time_Zone_Update = {"AT+CTZU=1",{"\r\nOK\r\n","","\r\n+CME 
 ATCOMMANDS Save_user_setting_to_ME = {"AT&W0",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 
 
-ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
-ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
-//ATCOMMANDS IMEI = {"AT+CN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
-ATCOMMANDS IMEI = {"AT+CGSN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+//ATCOMMANDS CCID = {"AT+CICCID",{"\r\n+CCID: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+//ATCOMMANDS IMSI = {"AT+CIMI",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
+////ATCOMMANDS IMEI = {"AT+CN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
+//ATCOMMANDS IMEI = {"AT+CGSN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 ATCOMMANDS Syncro_CLock = {"AT+CCLK?",{"\r\n+CCLK: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 ATCOMMANDS Signal_Quality = {"AT+CSQ",{"\r\n+CSQ: ","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
 ATCOMMANDS Sim_Detect = {"AT+CPIN?",{"READY","","\r\n+CME ERROR"},{0,0,0},'\r','\n',200};
@@ -75,11 +75,14 @@ ATCOMMANDS CreateSocket = {"AT+NETOPEN",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,
 //												{"AT+CIPOPEN=9,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}
 //											};
 
-ATCOMMANDS Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',1000}; //returns a number identifying the socket};
+ATCOMMANDS Default_Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",""\"13.126.165.4""\",4000",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',1000}; //returns a number identifying the socket};
+ATCOMMANDS Configure_Socket_connection_Direct_Mode = {"AT+CIPOPEN=0,""\"TCP""\",",{"\r\nOK\r\n\r\n+CIPOPEN: 0,","","\r\n+CME ERROR"},{0,0,0},'\r','\n',1000}; //returns a number identifying the socket};
 
 ATCOMMANDS TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n\r\n+CIPSEND:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
+ATCOMMANDS Configure_TcpIp_Send_data = {"AT+CIPSEND=0,",{"\r\n>\r\nOK\r\n\r\n+CIPSEND:","","\r\n+CME ERROR"},{0,0,0},'\r','\n',5000}; //returns a number identifying the socket
 
 ATCOMMANDS Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
+ATCOMMANDS Configure_Socket_closed_connection_Direct_Mode = {"AT+CIPCLOSE=0",{"\r\nOK\r\n\r\n+CIPCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 
 ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',100};
 
@@ -200,7 +203,7 @@ void gsm_task(void)
 	            	{
 	            		gsm_state = GSM_INIT;
 	            	}
-	            	//gsm_state = GSM_TCPIP_STATE; 		// test
+	            	gsm_state = GSM_TCPIP_STATE; 		// test
 	            }
 	        }
 	        break;
@@ -357,7 +360,7 @@ void gsm_task(void)
 	        			uint8_t tcpip_status = 0;
 	        			SendCommandAndWaitForResponse(&CreateSocket);
 	        			tcpip_status = VerifyRespAndPrepForNxtStep(&CreateSocket, 0);
-	        			//tcpip_status = 1;
+	        			tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketStart = true;
@@ -377,7 +380,7 @@ void gsm_task(void)
 	        			uint8_t tcpip_mode_select = 0;
 	        			SendCommandAndWaitForResponse(&TCPIP_Direct_Mode_Set);
 	        			tcpip_mode_select = VerifyRespAndPrepForNxtStep(&TCPIP_Direct_Mode_Set, 0);
-	        			//tcpip_mode_select = 1;
+	        			tcpip_mode_select = 1;
 	        			if(tcpip_mode_select)
 	        			{
 	        				gsm.Flags.SocketDirectMode = true;
@@ -393,9 +396,9 @@ void gsm_task(void)
 	        		case TCP_IP_CONNECTION:
 	        		{
 	        			uint8_t tcpip_status = 0;
-	        			SendCommandAndWaitForResponse(&Socket_connection_Direct_Mode);
-	        			tcpip_status = VerifyRespAndPrepForNxtStep(&Socket_connection_Direct_Mode, 0);
-	        			//tcpip_status = 1;
+	        			SendCommandAndWaitForResponse(&Default_Socket_connection_Direct_Mode);
+	        			tcpip_status = VerifyRespAndPrepForNxtStep(&Default_Socket_connection_Direct_Mode, 0);
+	        			tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketConnectedDirectMode = true;
@@ -431,7 +434,7 @@ void gsm_task(void)
 	        			}
 	        			delayMiliSec(1000);
 	        			tcpip_status = VerifyRespAndPrepForNxtStep(&TcpIp_Send_data,0);
-	        			//tcpip_status = 1;
+	        			tcpip_status = 1;
 	        			if(tcpip_status)
 	        			{
 	        				gsm.Flags.SocketSendData = true;
@@ -453,8 +456,8 @@ void gsm_task(void)
 	        case GSM_SOCKET_DATA_RECEIVE:
 	        {
 	        	uint8_t receive_status = 0;
-	        	memset(gsm.RxData, 0, sizeof(gsm.RxData));
-	        	startTimer(&AtCommandTimer, 10000, false);
+//	        	memset(gsm.RxData, 0, sizeof(gsm.RxData));
+	        	startTimer(&AtCommandTimer, 1000, false);
 	        	while(gsm.Flags.ATCommandResponceReceive == false)
 	        	{
 	        		if(isTimerComplete(AtCommandTimer))
@@ -462,6 +465,7 @@ void gsm_task(void)
 	        	}
 
 	        	stopTimer(AtCommandTimer);
+	        	gsm.RxOperation = true;		// for test
 	        	if(gsm.RxOperation == true)
 	        	{
 	        		if(compareArray(gsm.RxData, "\r\nRECV FROM:13.126.165.4:4000\r\n+IPD", 0, '\0'))
@@ -551,7 +555,7 @@ unsigned char* jump_char_fixed(unsigned char *pktPtr, char character)
     while(*pktPtr++ !=  character);
     return pktPtr;
 }
-
+uint16_t count_data =0;
 void serverdatasave()
 {
 	int i=0;  				//    \r\nRECV FROM:13.126.165.4:4000\r\n+IPD
@@ -563,6 +567,7 @@ void serverdatasave()
 		pktptr++;
 	}
 	i=0;
+	pktptr++;
 	while(*pktptr != '\r')
 	{
 		gsm.gsm_data.Response_Port[i++] = *pktptr;
@@ -573,14 +578,20 @@ void serverdatasave()
 	pktptr++;
 	pktptr++;
 	pktptr++;
+	pktptr++;
+//	pktptr = jump_char_fixed(pktptr,'D');
 	i=0;
-	char count[] = "\0";
+	char count[3];
+	memset(count, 0, sizeof(count));
 	while(*pktptr != '\r')
 	{
 		count[i++] = *pktptr;
 		pktptr++;
 	}
-	convert_char_to_int_and_store(count,&gsm.gsm_data.data_receive_count,4);
+
+	convert_char_to_int_and_store(count,&count_data,i);
+	gsm.gsm_data.data_receive_count =count_data;
+	pktptr++;
 	pktptr++;
 	i=0;
 	while(*pktptr != '\0')
@@ -588,7 +599,16 @@ void serverdatasave()
 		gsm.gsm_data.server_data[i++] = *pktptr;
 		pktptr++;
 	}
-	gsm.gsm_data.Responce_FC = gsm.gsm_data.server_data[7];
+
+	gsm.gsm_data.Responce_FC = 'E';  // for test
+	gsm.gsm_data.Responce_FC = gsm.gsm_data.server_data[8];
+
+	if(compareArray(gsm.gsm_data.imei, &gsm.gsm_data.server_data[10] , 0, ','))
+	    {
+	       // gsm_state = GSM_RESET_MODULE; //Pankaj Verma
+	       // return 1;
+		gsm.Flags.imei_mactched = true;
+	    }
 }
 
 
@@ -603,6 +623,64 @@ void Responce_Execution(uint8_t responce_execution)
 		break;
 		case FC_CONFIGURATION:
 		{
+			if(gsm.Flags.imei_mactched == true)
+			{
+
+				int i=19;
+				while(Configure_Socket_connection_Direct_Mode.command[i] != '\0')
+				{
+					Configure_Socket_connection_Direct_Mode.command[i++] ='\0';
+				}
+				gsm.Socket_connection = gsm.gsm_data.server_data[26] ;
+				uint8_t *pktptr_des = &Configure_Socket_connection_Direct_Mode.command[11];
+				uint8_t *pktptr_src = &gsm.gsm_data.server_data[26];
+				str_copy_ram_lim( pktptr_src, pktptr_des ,  ',');		// id number
+				pktptr_des = jump_char_fixed(pktptr_des, ',');			// jump to ,
+				pktptr_des = jump_char_fixed(pktptr_des, ',');			// jump to "tcp",
+				pktptr_src++;
+				pktptr_src++;
+				str_copy_ram_lim( pktptr_src, pktptr_des ,  ',');
+				pktptr_des = jump_char_fixed(pktptr_des, '"');
+				pktptr_des = jump_char_fixed(pktptr_des, '"');
+				pktptr_src = jump_char_fixed(pktptr_src, ',');
+				*pktptr_des++ = ',';
+				str_copy_ram_lim( pktptr_src, pktptr_des ,  ',');
+
+				 Configure_TcpIp_Send_data.command[11] = gsm.Socket_connection;
+				 Configure_Socket_closed_connection_Direct_Mode.command[12] = gsm.Socket_connection;
+
+
+							// TEsting purpose below code
+//							char dummy_data[]="STX,0067C,861123052577218,5,""\"192.168.1.4""\",4498,8989ETX";
+//
+//							int i=0;
+//							        while(dummy_data[i] != '\0')
+//							        {
+//							        	gsm.gsm_data.server_data[i] = dummy_data[i];
+//							        	i++;
+//							        }
+//							        i=19;
+//							        while(configure_Socket_connection_Direct_Mode.command[i] != '\0')
+//							        {
+//							        	configure_Socket_connection_Direct_Mode.command[i++] ='\0';
+//							        }
+//
+//							        uint8_t		*pktptr_des1 = &configure_Socket_connection_Direct_Mode.command[11];
+//							        uint8_t		*pktptr_src1 = &gsm.gsm_data.server_data[26];
+//									str_copy_ram_lim( pktptr_src, pktptr_des1 ,  ',');		// id number
+//									pktptr_des1 = jump_char_fixed(pktptr_des1, ',');			// jump to ,
+//									pktptr_des1 = jump_char_fixed(pktptr_des1, ',');			// jump to "tcp",
+//
+//												pktptr_src1++;
+//												pktptr_src1++;
+//												str_copy_ram_lim( pktptr_src1, pktptr_des1 ,  ',');
+//												pktptr_des1 = jump_char_fixed(pktptr_des1, '"');
+//												pktptr_des1 = jump_char_fixed(pktptr_des1, '"');
+//												pktptr_src1 = jump_char_fixed(pktptr_src1, ',');
+//												*pktptr_des1++ = ',';
+//												str_copy_ram_lim( pktptr_src1, pktptr_des1 ,  ',');
+
+			}
 
 		}
 		break;
@@ -618,7 +696,7 @@ void Responce_Execution(uint8_t responce_execution)
 void gsm_ccid()
 {
 	int i=0;
-	send_At_Command_Test(&CCID);
+//	send_At_Command_Test(&CCID);
 	unsigned char *pktptr = &gsm.RxData[0];
 	pktptr = jump_char_fixed(pktptr,':');
 	pktptr++;
@@ -635,7 +713,7 @@ void gsm_ccid()
 void gsm_imsi()
 {
 	int i=0;
-	send_At_Command_Test(&IMSI);
+//	send_At_Command_Test(&IMSI);
 	unsigned char *pktptr = &gsm.RxData[0];
 	pktptr = jump_char_fixed(pktptr,'\n');
 //	pktptr++;
@@ -648,7 +726,7 @@ void gsm_imsi()
 void gsm_imei()
 {
 	int i=0;
-	send_At_Command_Test(&IMEI);
+//	send_At_Command_Test(&IMEI);
 	unsigned char *pktptr = &gsm.RxData[0];
 	pktptr = jump_char_fixed(pktptr,'\n');
 	//pktptr++;
@@ -662,7 +740,7 @@ void gsm_imei()
 bool gsm_sim_Status()
 {
 	int i=0;
-	send_At_Command_Test(&Sim_Detect);
+	//send_At_Command_Test(&Sim_Detect);
 	unsigned char *pktptr = &gsm.RxData[0];
 	pktptr = jump_char_fixed(pktptr,':');
 	pktptr++;
@@ -836,4 +914,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //
 //ATCOMMANDS Socket_Closed = {"AT+NETCLOSE",{"\r\nOK\r\n\r\n+NETCLOSE: 0","","\r\n+CME ERROR"},{0,0,0},'\r','\n',500};
 //
+
+//arm-none-eabi-objcopy -O ihex “${BuildArtifactFileBaseName}.elf” “${BuildArtifactFileBaseName}.hex” && arm-none-eabi-size “${BuildArtifactFileName}” && arm-none-eabi-objcopy -O binary  “${BuildArtifactFileBaseName}.bin”
+
+//arm-none-eabi-objcopy -O ihex "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.hex" && arm-none-eabi-size "${BuildArtifactFileName}"
+
+//arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.hex" "${BuildArtifactFileBaseName}.bin"  && arm-none-eabi-size "${BuildArtifactFileName}"
 

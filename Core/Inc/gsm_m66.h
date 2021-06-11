@@ -63,7 +63,7 @@ struct gsm_data_struct
    unsigned char snn[16];
    unsigned char server_name[20];
    uint16_t data_receive_count;
-   unsigned char server_data[50];
+   unsigned char server_data[60];
    unsigned char FC_CONFIGRATION;
    unsigned char Responce_FC;
   // struct gsm_time_struct time;
@@ -94,6 +94,7 @@ struct Gsm_Flags{
 	volatile unsigned  GsmReset;
 	volatile unsigned  GsmSleep;
 	volatile unsigned  crcVerified;
+	volatile unsigned  imei_mactched;
 
 }__attribute__ ((packed));
 
@@ -135,6 +136,7 @@ typedef struct{
     uint8_t NetworkRegistrationStat;
     uint8_t NetworkRegistrationN;
    unsigned char crc_data[4];
+   char Socket_connection;
     uint8_t TxOperation;
     uint8_t RxOperation;
     uint16_t RxDataCnt;

@@ -58,7 +58,7 @@ void str_copy_ram_cnt( ubyte *rec_src_ram_add,  ubyte *rec_dest_ram_add,  uint8_
 
 ubyte convert_char_to_int_and_store(char *rec_src_ram_add, int *rec_dest_ram_add, int count)
 {
-        *rec_dest_ram_add = 0;
+    //    *rec_dest_ram_add = 0;
 
         switch (count)
         {
@@ -76,7 +76,8 @@ ubyte convert_char_to_int_and_store(char *rec_src_ram_add, int *rec_dest_ram_add
 
             case TWO_DIGIT:
               *rec_dest_ram_add += (*rec_src_ram_add++ - '0') * 10;
-
+           //   rec_src_ram_add++;
+          //    *rec_dest_ram_add + = *rec_dest_ram_add;
             case ONE_DIGIT:
               *rec_dest_ram_add += (*rec_src_ram_add - '0');
               return(count);

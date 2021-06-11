@@ -10,7 +10,6 @@
 
 
 char DeviceID[15] = "DSGROUP11355";		//DS + IMEI last 5 digit  + 001 or DS + IMEI last 5 digit + K2K
-char TimeStmp[15] = "123123123123123";
 char RecordID[10] = "48945";  //  K2K + IMEI last 5 digit
 char SwVer[5] = "1.00";			//
 char Server_name[] = "gsm.dsgroup.in";	// pankaj_personal  //  13.126.165.4  gsm.dsgroup.in
@@ -65,6 +64,7 @@ void GenerateStausPacket()
     memcpy(gsm.gsm_data.command_port,Command_Port , sizeof(Command_Port));
     memcpy(gsm.gsm_data.server_name,Server_name , sizeof(Server_name));
     memcpy(gsm.gsm_data.status_port,Status_Port , sizeof(Status_Port));
+    memcpy(gsm.gsm_data.imei,"861123052577218" , 16);
     memcpy(gsm.gsm_data.server_data,"INTRUDER DETECTED" , 20);
 
 //    // start fram
@@ -146,17 +146,25 @@ void GenerateStausPacket()
         str_copy_ram_lim("ETX",&gsm.TxData[char_dest_ptr - gsm.TxData+4],0);
         gsm.TxDataCnt = char_dest_ptr - gsm.TxData + L_CRC + L_ETX;
         gsm.Flags.DataPacketReady = 1;
+//        char dummy_data[]="\r\nRECV FROM:13.126.165.4:4000\r\n+IPD715\r\nSTX,0067C,DSGROUP11355,48945,1.00,,,,,,,,,gsm.dsgroup.in,400890,8000,8989ETX";
+        char dummy_data[]="\r\nRECV FROM:13.126.165.4:4000\r\n+IPD715\r\nSTX,0067C,861123052577218,5,""\"192.168.131.497""\",8080,8989ETX";
 //       // Gsm.TxOperation = 1;
-//        int i=0;
+        int i=0;
+        while(dummy_data[i] != '\0')
+        {
+        	gsm.RxData[i] = dummy_data[i];
+        	i++;
+        }
+        gsm.Flags.crcVerified = true;
 //        while(gsm.TxData[i] != '\0')
 //        {
 //        	gsm.RxData[i] = gsm.TxData[i];
 //        	i++;
 //        }
-        if(verify_crc(&gsm.RxData,(gsm.TxDataCnt - 7)))
-        {
-        	gsm.Flags.crcVerified = true;
-        }
+//        if(verify_crc(&gsm.RxData,(gsm.TxDataCnt - 7)))
+//        {
+//        	gsm.Flags.crcVerified = true;
+//        }
 }
 
 
